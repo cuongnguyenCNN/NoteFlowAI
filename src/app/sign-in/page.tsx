@@ -50,7 +50,6 @@ export default function SignIn() {
           googleToken: id_token,
         }),
       });
-      gagg;
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Unknown error saving user");
       localStorage.setItem("userId", data.user.id);

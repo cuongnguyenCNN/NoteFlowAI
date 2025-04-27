@@ -69,7 +69,6 @@ export default function SideBar() {
     setNewFolderName("");
     fetchFolders(); // Load lại danh sách mới
   }
-  const router = useRouter();
   useEffect(() => {
     // ⚡ Check cookie trước
     if (typeof window !== "undefined") {
