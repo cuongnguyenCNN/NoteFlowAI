@@ -1,22 +1,5 @@
 "use client";
 import Link from "next/link";
-function convertStyleStringToObject(styleString: string) {
-  const styleObject: { [key: string]: string } = {};
-
-  styleString.split(";").forEach((style) => {
-    if (style.trim()) {
-      const [property, value] = style.split(":");
-      if (property && value) {
-        const camelCaseProperty = property
-          .trim()
-          .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase()); // Convert to camelCase
-        styleObject[camelCaseProperty] = value.trim();
-      }
-    }
-  });
-
-  return styleObject;
-}
 
 type NavbarProps = {
   toggleSidebar: () => void;
