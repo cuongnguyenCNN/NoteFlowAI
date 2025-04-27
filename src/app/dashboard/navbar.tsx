@@ -39,28 +39,16 @@ type SidebarProps = {
   isOpen: boolean;
   toggleSidebar: () => void;
 };
-export default function NavbarDashboard() {
-  const [openSidebar, setOpenSidebar] = useState(false);
-  const toggleSidebar = () => {
-    setOpenSidebar((prev) => !prev);
-  };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 866) {
-        setOpenSidebar(true); // Desktop: mở
-      } else {
-        setOpenSidebar(false); // Mobile: đóng
-      }
-    };
-
-    handleResize(); // Gọi ngay lần đầu tiên
-  }, []);
+type NavbarProps = {
+  toggleSidebar: () => void;
+};
+export default function NavbarDashboard({ toggleSidebar }: NavbarProps) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-3">
         <button
-          onClick={() => setOpenSidebar(true)}
+          onClick={toggleSidebar}
           className="items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 size-9 hidden max-[866px]:flex"
         >
           <svg
@@ -139,7 +127,6 @@ export default function NavbarDashboard() {
         </nav>
       </div>
       <button className="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 flex items-center gap-2"></button>
-      <SideBar isOpen={openSidebar} toggleSidebar={toggleSidebar}></SideBar>
     </div>
   );
 }

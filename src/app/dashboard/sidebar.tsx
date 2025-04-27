@@ -93,10 +93,12 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
   return (
     <div
       className={`
-      fixed top-0 h-full z-40 bg-background border-r border-zinc-200 dark:border-zinc-800 transition-all duration-300
+      fixed h-full z-50 w-[272px]  duration-300  bg-background max-tablet:w-[80px] py-4 flex flex-col overflow-hidden transition-all duration-400 border-r border-zinc-200  dark:border-zinc-800
+      
       ${isOpen ? "left-0" : "left-[-272px]"}
       w-[272px] max-tablet:w-[80px]
     `}
+      style={{ background: "white" }}
     >
       <div className="flex justify-center mb-7">
         <Link href="/" className="flex items-center gap-2">
