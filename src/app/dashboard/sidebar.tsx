@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ProfileModal from "../components/profilemodal";
 import PricingModal from "../components/pricingModal";
-import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
