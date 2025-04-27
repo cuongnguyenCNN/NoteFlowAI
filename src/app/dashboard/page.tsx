@@ -5,8 +5,6 @@ import "../../css/b81a822ef496e877.css";
 
 import "../../css/be7c40c9332f48ab.css";
 import YoutubeModal from "../components/youtubemodal";
-import { useEffect, useState } from "react";
-import SideBar from "./sidebar";
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
 
@@ -25,21 +23,6 @@ function convertStyleStringToObject(styleString: string) {
   return styleObject;
 }
 export default function Dashboard() {
-  const [openSidebar, setOpenSidebar] = useState(false);
-  const toggleSidebar = () => {
-    setOpenSidebar((prev) => !prev);
-  };
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 866) {
-        setOpenSidebar(true); // Desktop: mở
-      } else {
-        setOpenSidebar(false); // Mobile: đóng
-      }
-    };
-
-    handleResize(); // Gọi ngay lần đầu tiên
-  }, []);
   return (
     <>
       <h3 className="scroll-m-20 text-2xl tracking-tight font-bold mt-2">

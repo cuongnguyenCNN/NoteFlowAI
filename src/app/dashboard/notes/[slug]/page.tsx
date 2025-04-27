@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
 import { Notebook, AlertCircle, Zap, FileText } from "lucide-react";
 import Quiz from "@/src/app/components/quiz";

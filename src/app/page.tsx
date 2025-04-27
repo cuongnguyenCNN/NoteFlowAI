@@ -277,7 +277,7 @@ export default function Home() {
         </CustomButton>
       </section>
 
-      {/* <section className="py-20 bg-white max-w-6xl mx-auto">
+      <section className="py-20 bg-white max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           💎 Pricing Plans
         </h2>
@@ -295,7 +295,7 @@ export default function Home() {
           />
           <PricingCard
             title="Pro"
-            price="$3.99 / month"
+            price="$ / month"
             features={[
               "Mind Maps",
               "Cloud Storage",
@@ -318,7 +318,7 @@ export default function Home() {
             highlight
           />
         </div>
-      </section> */}
+      </section>
       <section>
         <FAQ></FAQ>
       </section>

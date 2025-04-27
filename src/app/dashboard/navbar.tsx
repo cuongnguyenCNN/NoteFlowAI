@@ -1,11 +1,5 @@
 "use client";
-import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import ProfileModal from "../components/profilemodal";
-import PricingModal from "../components/pricingModal";
-import { getCookie } from "cookies-next";
-import SideBar from "./sidebar";
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
 
@@ -23,22 +17,6 @@ function convertStyleStringToObject(styleString: string) {
 
   return styleObject;
 }
-type GoogleUser = {
-  name: string;
-  picture: string;
-  email: string;
-};
-type Folder = {
-  id: string; // hoặc number, tùy database
-  user_id: string;
-  name: string;
-  description: string;
-  created_at: string; // ISO date string
-};
-type SidebarProps = {
-  isOpen: boolean;
-  toggleSidebar: () => void;
-};
 
 type NavbarProps = {
   toggleSidebar: () => void;
