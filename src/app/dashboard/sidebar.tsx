@@ -46,9 +46,9 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [openPricingModal, setOpenPricingModal] = useState(false);
-  const handleCreateFolder = () => {
+  const handleCreateFolder = async () => {
     if (newFolderName.trim() === "") return;
-    createFolder();
+    await createFolder();
     setNewFolderName("");
     setShowModal(false);
   };
@@ -70,7 +70,7 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
     });
 
     setNewFolderName("");
-    fetchFolders(); // Load lại danh sách mới
+    await fetchFolders(); // Load lại danh sách mới
   }
 
   useEffect(() => {
