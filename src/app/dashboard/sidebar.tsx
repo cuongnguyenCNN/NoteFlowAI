@@ -48,7 +48,7 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
   const [openPricingModal, setOpenPricingModal] = useState(false);
   const handleCreateFolder = async () => {
     if (newFolderName.trim() === "") return;
-    await createFolder();
+    createFolder();
     setNewFolderName("");
     setShowModal(false);
   };

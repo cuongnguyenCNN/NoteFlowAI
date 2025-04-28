@@ -195,6 +195,7 @@ export default function YoutubeModal() {
               <button
                 onClick={handleGenerate}
                 className="w-full bg-gray-700 text-white py-2 rounded"
+                style={{ background: "black" }}
               >
                 ✨ Generate note
               </button>
