@@ -105,7 +105,6 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
     `}
       style={{ background: "white" }}
     >
-      <button onClick={fetchNotes}> OLK</button>
       <div className="flex justify-center mb-7">
         <Link href="/" className="flex items-center gap-2">
           <h4 className="scroll-m-20 tracking-tight text-2xl font-black">

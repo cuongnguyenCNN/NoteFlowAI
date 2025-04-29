@@ -1,5 +1,5 @@
 // /pages/api/folders/list.ts
-import { Note, Folder } from "@/src/types";
+import { Note } from "@/src/types";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(

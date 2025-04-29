@@ -6,7 +6,7 @@ import "../css/21527cccdd6ccf0f.css";
 import "../css/b81a822ef496e877.css";
 
 import "../css/be7c40c9332f48ab.css";
-import { inter, poppins, robotoSlab, manrope } from "../fonts";
+import { inter } from "../fonts";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

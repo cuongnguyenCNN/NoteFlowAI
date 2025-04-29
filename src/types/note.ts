@@ -5,8 +5,8 @@ export interface Note {
   content: string | null;
   created_at: string; // ISO timestamp format
   summary: string | null;
-  mindmap_data: Record<string, any> | null;
-  flashcards: Record<string, any> | null;
+  mindmap_data: Record<string, string> | null;
+  flashcards: Record<string, string> | null;
   transcript: string | null;
   translated_content: string | null;
   language: string;

@@ -5,7 +5,6 @@ import "../../css/b81a822ef496e877.css";
 import OpenAI from "openai";
 import "../../css/be7c40c9332f48ab.css";
 import YoutubeModal from "../components/youtubemodal";
-import { useEffect, useState } from "react";
 
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
@@ -24,26 +23,10 @@ function convertStyleStringToObject(styleString: string) {
 
   return styleObject;
 }
-async function getData() {
-  const res = await fetch("/api/getData");
-  const data = await res.json();
-  return data.text;
-}
+
 export default function Dashboard() {
-  const [data, setData] = useState("");
-  const handleClick = async () => {
-    try {
-      const result = await getData();
-      setData(result);
-    } catch (err) {
-      console.error(err);
-      setData("Có lỗi xảy ra!");
-    }
-  };
   return (
     <>
-      <button onClick={handleClick}>OK</button>
-      <div>{data}</div>
       <h3 className="scroll-m-20 text-2xl tracking-tight font-bold mt-2">
         New note
       </h3>
