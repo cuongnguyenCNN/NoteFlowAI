@@ -2,7 +2,6 @@
 import Link from "next/link";
 import "../../css/21527cccdd6ccf0f.css";
 import "../../css/b81a822ef496e877.css";
-import OpenAI from "openai";
 import "../../css/be7c40c9332f48ab.css";
 import YoutubeModal from "../components/youtubemodal";
 
