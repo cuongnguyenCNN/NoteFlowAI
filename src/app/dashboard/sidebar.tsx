@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import ProfileModal from "../components/profilemodal";
 import PricingModal from "../components/pricingModal";
 import { getCookie } from "cookies-next";
-import { Note, Folder } from "@/src/types";
+import { useNotes } from "../../contexts/notescontext";
+import { useFolders } from "@/src/contexts/folderscontext";
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
 
@@ -35,8 +36,9 @@ type SidebarProps = {
 
 const MAX_FREE_NOTES = 3;
 export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
-  const [folders, setFolders] = useState<Folder[]>([]);
-  const [notes, setNotes] = useState<Note[]>([]);
+  const { notes, fetchNotes } = useNotes();
+  const { folders, fetchFolders, createFolder } = useFolders();
+  // const [notes1, setNotes] = useState<Note[]>([]);
   const [user, setUsers] = useState<GoogleUser>();
   const [showModal, setShowModal] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
@@ -45,37 +47,40 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
   const [openPricingModal, setOpenPricingModal] = useState(false);
   const handleCreateFolder = async () => {
     if (newFolderName.trim() === "") return;
-    createFolder();
+    createFolder({
+      user_id: localStorage.getItem("userId") ?? "",
+      name: newFolderName,
+    });
     setNewFolderName("");
     setShowModal(false);
   };
-  async function fetchFolders() {
-    const userId = localStorage.getItem("userId");
-    const res = await fetch(`/api/folders/list?userId=${userId}`);
-    const data = await res.json();
-    setFolders(data.folders);
-  }
-  async function fetchNotes() {
-    debugger;
-    const userId = localStorage.getItem("userId");
-    const res = await fetch(`/api/notes/list?userId=${userId}`);
-    const data = await res.json();
-    setNotes(data.notes);
-  }
+  // async function fetchFolders() {
+  //   const userId = localStorage.getItem("userId");
+  //   const res = await fetch(`/api/folders/list?userId=${userId}`);
+  //   const data = await res.json();
+  //   setFolders(data.folders);
+  // }
+  // async function fetchNotes() {
+  //   debugger;
+  //   const userId = localStorage.getItem("userId");
+  //   const res = await fetch(`/api/notes/list?userId=${userId}`);
+  //   const data = await res.json();
+  //   setNotes(data.notes);
+  // }
 
-  async function createFolder() {
-    const userId = localStorage.getItem("userId");
-    if (!newFolderName.trim()) return;
+  // async function createFolder() {
+  //   const userId = localStorage.getItem("userId");
+  //   if (!newFolderName.trim()) return;
 
-    await fetch("/api/folders/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: userId, name: newFolderName }),
-    });
+  //   await fetch("/api/folders/create", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ userId: userId, name: newFolderName }),
+  //   });
 
-    setNewFolderName("");
-    await fetchFolders(); // Load lại danh sách mới
-  }
+  //   setNewFolderName("");
+  //   await fetchFolders(); // Load lại danh sách mới
+  // }
 
   useEffect(() => {
     // ⚡ Check cookie trước
@@ -88,8 +93,8 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
         console.warn("Không tìm thấy token_user trong localStorage");
       }
     }
-    fetchFolders();
-    fetchNotes();
+    fetchFolders(localStorage.getItem("userId") ?? "");
+    fetchNotes(localStorage.getItem("userId") ?? "");
     if (showModal && inputRef.current) {
       inputRef.current.focus();
     }

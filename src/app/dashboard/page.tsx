@@ -4,6 +4,18 @@ import "../../css/21527cccdd6ccf0f.css";
 import "../../css/b81a822ef496e877.css";
 import "../../css/be7c40c9332f48ab.css";
 import YoutubeModal from "../components/youtubemodal";
+import { useNotes } from "../../contexts/notescontext";
+const formatDate = (isoDate: string) => {
+  const date = new Date(isoDate);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+};
 
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
@@ -24,6 +36,7 @@ function convertStyleStringToObject(styleString: string) {
 }
 
 export default function Dashboard() {
+  const { notes } = useNotes();
   return (
     <>
       <h3 className="scroll-m-20 text-2xl tracking-tight font-bold mt-2">
@@ -54,6 +67,98 @@ export default function Dashboard() {
             )}
           >
             <div className=" flex flex-col gap-3 overflow-hidden">
+              {notes &&
+                notes.map((note, index) => (
+                  <li
+                    key={index}
+                    className="list-none"
+                    style={convertStyleStringToObject(
+                      "overflow: hidden; height: auto;"
+                    )}
+                  >
+                    <Link href="/dashboard/notes">
+                      <div className="rounded-lg border bg-card text-card-foreground shadow-sm cursor-pointer hover:shadow-lg transition-all duration-200 group">
+                        <div className="p-6 py-4 flex items-center justify-between">
+                          <div className="flex-1">
+                            <h4 className="scroll-m-20 text-xl tracking-tight font-bold">
+                              {note.title}
+                            </h4>
+                            <p className="text-sm text-muted-foreground">
+                              {note.content}
+                            </p>
+                            <div className="flex max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2 justify-between items-center mt-2">
+                              <div className="flex items-center gap-2">
+                                <button
+                                  className="flex items-center"
+                                  type="button"
+                                  id="radix-:r16:"
+                                  aria-haspopup="menu"
+                                  aria-expanded="false"
+                                  data-state="closed"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="lucide lucide-folder-plus mr-1 "
+                                  >
+                                    <path d="M12 10v6"></path>
+                                    <path d="M9 13h6"></path>
+                                    <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path>
+                                  </svg>
+                                  <small className="text-sm font-medium leading-none">
+                                    Add folder
+                                  </small>
+                                </button>
+                                <div className="flex items-center">
+                                  <img
+                                    alt="pdf"
+                                    loading="lazy"
+                                    width="512"
+                                    height="512"
+                                    decoding="async"
+                                    data-nimg="1"
+                                    className="mr-1 size-5"
+                                    src="/_next/static/media/pdf.bc7ff215.svg"
+                                    style={convertStyleStringToObject(
+                                      "color: transparent;"
+                                    )}
+                                  />
+                                  <small className="text-sm font-medium leading-none">
+                                    PDF
+                                  </small>
+                                </div>
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                {formatDate(note.created_at)}
+                              </p>
+                            </div>
+                          </div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-chevron-right ml-3 h-4 w-4 transition-transform duration-150 group-hover:translate-x-2"
+                          >
+                            <path d="m9 18 6-6-6-6"></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
               <li
                 className="list-none"
                 style={convertStyleStringToObject(
