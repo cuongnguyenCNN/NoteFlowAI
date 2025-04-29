@@ -5,6 +5,8 @@ import "../../css/b81a822ef496e877.css";
 import "../../css/be7c40c9332f48ab.css";
 import YoutubeModal from "../components/youtubemodal";
 import { useNotes } from "../../contexts/notescontext";
+import { useState } from "react";
+import { useFolders } from "@/src/contexts/folderscontext";
 const formatDate = (isoDate: string) => {
   const date = new Date(isoDate);
   return new Intl.DateTimeFormat("en-GB", {
@@ -36,7 +38,11 @@ function convertStyleStringToObject(styleString: string) {
 }
 
 export default function Dashboard() {
-  const { notes } = useNotes();
+  const { notes, updateNote, fetchNotes } = useNotes();
+  const { folders } = useFolders();
+  const [openAddfolder, setOpenAddFolder] = useState(false);
+  const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
+
   return (
     <>
       <h3 className="scroll-m-20 text-2xl tracking-tight font-bold mt-2">
@@ -89,6 +95,12 @@ export default function Dashboard() {
                             <div className="flex max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2 justify-between items-center mt-2">
                               <div className="flex items-center gap-2">
                                 <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    setOpenAddFolder(!openAddfolder);
+                                    setSelectedNoteId(note.id);
+                                  }}
                                   className="flex items-center"
                                   type="button"
                                   id="radix-:r16:"
@@ -113,7 +125,9 @@ export default function Dashboard() {
                                     <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path>
                                   </svg>
                                   <small className="text-sm font-medium leading-none">
-                                    Add folder
+                                    {folders.find(
+                                      (f) => f.id === note.folder_id
+                                    )?.name || "Add folder"}
                                   </small>
                                 </button>
                                 <div className="flex items-center">
@@ -157,6 +171,33 @@ export default function Dashboard() {
                         </div>
                       </div>
                     </Link>
+                    {/* Folder menu riêng cho mỗi note */}
+                    {openAddfolder && selectedNoteId === note.id && (
+                      <div className="absolute left-0 mt-2 w-48 bg-white border rounded shadow z-10">
+                        <p className="px-4 py-2 font-semibold text-sm border-b">
+                          Add folder
+                        </p>
+                        {folders.map((folder) => (
+                          <div
+                            key={folder.id}
+                            onClick={async () => {
+                              updateNote(note.id, {
+                                folder_id: folder.id,
+                              }).then(() => {
+                                fetchNotes(
+                                  localStorage.getItem("userId") ?? ""
+                                );
+                                setOpenAddFolder(false);
+                                setSelectedNoteId(null);
+                              });
+                            }}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
+                          >
+                            📁 {folder.name}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </li>
                 ))}
               <li
@@ -179,6 +220,11 @@ export default function Dashboard() {
                         <div className="flex max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2 justify-between items-center mt-2">
                           <div className="flex items-center gap-2">
                             <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setOpenAddFolder(!openAddfolder);
+                              }}
                               className="flex items-center"
                               type="button"
                               id="radix-:r16:"
@@ -270,6 +316,11 @@ export default function Dashboard() {
                         <div className="flex max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2 justify-between items-center mt-2">
                           <div className="flex items-center gap-2">
                             <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setOpenAddFolder(!openAddfolder);
+                              }}
                               className="flex items-center"
                               type="button"
                               id="radix-:r19:"
@@ -338,6 +389,24 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </Link>
+                {openAddfolder && (
+                  <div className="absolute left-0 mt-2 w-48 bg-white border rounded shadow z-10">
+                    <p className="px-4 py-2 font-semibold text-sm border-b">
+                      Add folder
+                    </p>
+                    {folders.map((folder) => (
+                      <div
+                        key={folder.id}
+                        onClick={() => {
+                          setOpenAddFolder(false);
+                        }}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
+                      >
+                        📁 {folder.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </li>
               <li
                 className="list-none"
@@ -359,6 +428,11 @@ export default function Dashboard() {
                         <div className="flex max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2 justify-between items-center mt-2">
                           <div className="flex items-center gap-2">
                             <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                setOpenAddFolder(!openAddfolder);
+                              }}
                               className="flex items-center"
                               type="button"
                               id="radix-:r1c:"
