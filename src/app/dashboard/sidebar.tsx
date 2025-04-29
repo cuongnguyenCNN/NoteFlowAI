@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import ProfileModal from "../components/profilemodal";
 import PricingModal from "../components/pricingModal";
 import { getCookie } from "cookies-next";
+import { Note, Folder } from "@/src/types";
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
 
@@ -27,19 +28,15 @@ type GoogleUser = {
   picture: string;
   email: string;
 };
-type Folder = {
-  id: string; // hoặc number, tùy database
-  user_id: string;
-  name: string;
-  description: string;
-  created_at: string; // ISO date string
-};
 type SidebarProps = {
   isOpen: boolean;
   toggleSidebar: () => void;
 };
+
+const MAX_FREE_NOTES = 3;
 export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
   const [folders, setFolders] = useState<Folder[]>([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [user, setUsers] = useState<GoogleUser>();
   const [showModal, setShowModal] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
@@ -57,6 +54,13 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
     const res = await fetch(`/api/folders/list?userId=${userId}`);
     const data = await res.json();
     setFolders(data.folders);
+  }
+  async function fetchNotes() {
+    debugger;
+    const userId = localStorage.getItem("userId");
+    const res = await fetch(`/api/notes/list?userId=${userId}`);
+    const data = await res.json();
+    setNotes(data.notes);
   }
 
   async function createFolder() {
@@ -85,6 +89,7 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
       }
     }
     fetchFolders();
+    fetchNotes();
     if (showModal && inputRef.current) {
       inputRef.current.focus();
     }
@@ -100,6 +105,7 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
     `}
       style={{ background: "white" }}
     >
+      <button onClick={fetchNotes}> OLK</button>
       <div className="flex justify-center mb-7">
         <Link href="/" className="flex items-center gap-2">
           <h4 className="scroll-m-20 tracking-tight text-2xl font-black">
@@ -381,7 +387,8 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
                     <path d="M16 2v20"></path>
                   </svg>
                   <span className="text-xs">
-                    <span className="font-extrabold">2</span> / 3 Notes free
+                    <span className="font-extrabold">{notes.length}</span> /{" "}
+                    {MAX_FREE_NOTES} Notes free
                   </span>
                 </div>
                 <svg

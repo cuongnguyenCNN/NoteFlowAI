@@ -6,7 +6,7 @@ import "../css/21527cccdd6ccf0f.css";
 import "../css/b81a822ef496e877.css";
 
 import "../css/be7c40c9332f48ab.css";
-
+import { inter, poppins, robotoSlab, manrope } from "../fonts";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
       >
