@@ -6,6 +6,7 @@ type FoldersContextType = {
   folders: Folder[];
   fetchFolders: (userId: string) => Promise<void>;
   createFolder: (folder: Partial<Folder>) => Promise<void>;
+  editFolder: (folder: Partial<Folder>) => Promise<void>;
   deleteFolder: (id: string, userId: string) => Promise<void>;
 };
 
@@ -30,6 +31,10 @@ export const FoldersProvider = ({
     await supabase.from("folders").insert(folder);
     if (folder.user_id) await fetchFolders(folder.user_id);
   };
+  const editFolder = async (folder: Partial<Folder>) => {
+    await supabase.from("folders").update(folder).eq("id", folder.id);
+    if (folder.user_id) await fetchFolders(folder.user_id);
+  };
 
   const deleteFolder = async (id: string, userId: string) => {
     await supabase.from("folders").delete().eq("id", id);
@@ -38,7 +43,7 @@ export const FoldersProvider = ({
 
   return (
     <FoldersContext.Provider
-      value={{ folders, fetchFolders, createFolder, deleteFolder }}
+      value={{ folders, fetchFolders, createFolder, editFolder, deleteFolder }}
     >
       {children}
     </FoldersContext.Provider>
