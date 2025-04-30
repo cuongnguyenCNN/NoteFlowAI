@@ -77,10 +77,8 @@ export default function Dashboard() {
                 notes.map((note, index) => (
                   <li
                     key={index}
-                    className="list-none"
-                    style={convertStyleStringToObject(
-                      "overflow: hidden; height: auto;"
-                    )}
+                    className="list-none relative overflow-visible "
+                    style={convertStyleStringToObject(" height: auto;")}
                   >
                     <Link href="/dashboard/notes">
                       <div className="rounded-lg border bg-card text-card-foreground shadow-sm cursor-pointer hover:shadow-lg transition-all duration-200 group">
@@ -93,7 +91,7 @@ export default function Dashboard() {
                               {note.content}
                             </p>
                             <div className="flex max-[600px]:flex-col max-[600px]:items-start max-[600px]:gap-2 justify-between items-center mt-2">
-                              <div className="flex items-center gap-2">
+                              <div className="relative flex items-center gap-2">
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
@@ -130,6 +128,40 @@ export default function Dashboard() {
                                     )?.name || "Add folder"}
                                   </small>
                                 </button>
+                                {openAddfolder &&
+                                  selectedNoteId === note.id && (
+                                    <div
+                                      className=" absolute top-full left-0 mt-2 w-48 bg-white border rounded shadow z-50
+        transition-all duration-200 ease-out origin-top scale-95 animate-in"
+                                    >
+                                      <p className="px-4 py-2 font-semibold text-sm border-b">
+                                        Add folder
+                                      </p>
+                                      {folders.map((folder) => (
+                                        <div
+                                          key={folder.id}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            e.preventDefault();
+                                            updateNote(note.id, {
+                                              folder_id: folder.id,
+                                            }).then(() => {
+                                              fetchNotes(
+                                                localStorage.getItem(
+                                                  "userId"
+                                                ) ?? ""
+                                              );
+                                              setOpenAddFolder(false);
+                                              setSelectedNoteId(null);
+                                            });
+                                          }}
+                                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
+                                        >
+                                          📁 {folder.name}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
                                 <div className="flex items-center">
                                   <img
                                     alt="pdf"
@@ -172,32 +204,6 @@ export default function Dashboard() {
                       </div>
                     </Link>
                     {/* Folder menu riêng cho mỗi note */}
-                    {openAddfolder && selectedNoteId === note.id && (
-                      <div className="absolute left-0 mt-2 w-48 bg-white border rounded shadow z-10">
-                        <p className="px-4 py-2 font-semibold text-sm border-b">
-                          Add folder
-                        </p>
-                        {folders.map((folder) => (
-                          <div
-                            key={folder.id}
-                            onClick={async () => {
-                              updateNote(note.id, {
-                                folder_id: folder.id,
-                              }).then(() => {
-                                fetchNotes(
-                                  localStorage.getItem("userId") ?? ""
-                                );
-                                setOpenAddFolder(false);
-                                setSelectedNoteId(null);
-                              });
-                            }}
-                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
-                          >
-                            📁 {folder.name}
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </li>
                 ))}
               <li
@@ -390,7 +396,7 @@ export default function Dashboard() {
                   </div>
                 </Link>
                 {openAddfolder && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white border rounded shadow z-10">
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white border rounded shadow z-10">
                     <p className="px-4 py-2 font-semibold text-sm border-b">
                       Add folder
                     </p>
