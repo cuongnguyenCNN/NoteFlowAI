@@ -65,50 +65,50 @@ function CustomCardContent({
 }: CustomCardContentProps) {
   return <div className={clsx("p-6", className)}>{children}</div>;
 }
-interface PricingCard {
-  title?: string;
-  price: string;
-  features: string[];
-  buttonText: string;
-  highlight: boolean;
-}
-function PricingCard({
-  title,
-  price,
-  features,
-  buttonText,
-  highlight,
-}: PricingCard) {
-  return (
-    <div
-      className={clsx(
-        "contrainer rounded-2xl p-6 shadow-md flex flex-col items-center text-center",
-        highlight ? "bg-blue-600 text-white" : "bg-white text-gray-900"
-      )}
-    >
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <div className="text-4xl font-extrabold mb-4">{price}</div>
-      <ul className="text-left mb-6 space-y-2">
-        {features.map((f, i) => (
-          <li key={i} className="flex items-start gap-2">
-            <LucideStar className="w-4 h-4 text-yellow-400 mt-1" />
-            <span>{f}</span>
-          </li>
-        ))}
-      </ul>
-      <CustomButton
-        variant={highlight ? "outline" : "primary"}
-        className={
-          highlight
-            ? "text-white border-white hover:bg-white hover:text-blue-600"
-            : ""
-        }
-      >
-        {buttonText}
-      </CustomButton>
-    </div>
-  );
-}
+// interface PricingCard {
+//   title?: string;
+//   price: string;
+//   features: string[];
+//   buttonText: string;
+//   highlight: boolean;
+// }
+// function PricingCard({
+//   title,
+//   price,
+//   features,
+//   buttonText,
+//   highlight,
+// }: PricingCard) {
+//   return (
+//     <div
+//       className={clsx(
+//         "contrainer rounded-2xl p-6 shadow-md flex flex-col items-center text-center",
+//         highlight ? "bg-blue-600 text-white" : "bg-white text-gray-900"
+//       )}
+//     >
+//       <h3 className="text-xl font-bold mb-2">{title}</h3>
+//       <div className="text-4xl font-extrabold mb-4">{price}</div>
+//       <ul className="text-left mb-6 space-y-2">
+//         {features.map((f, i) => (
+//           <li key={i} className="flex items-start gap-2">
+//             <LucideStar className="w-4 h-4 text-yellow-400 mt-1" />
+//             <span>{f}</span>
+//           </li>
+//         ))}
+//       </ul>
+//       <CustomButton
+//         variant={highlight ? "outline" : "primary"}
+//         className={
+//           highlight
+//             ? "text-white border-white hover:bg-white hover:text-blue-600"
+//             : ""
+//         }
+//       >
+//         {buttonText}
+//       </CustomButton>
+//     </div>
+//   );
+// }
 
 export default function Home() {
   return (
@@ -277,7 +277,7 @@ export default function Home() {
         </CustomButton>
       </section>
 
-      <section className="py-20 bg-white max-w-6xl mx-auto">
+      {/* <section className="py-20 bg-white max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           💎 Pricing Plans
         </h2>
@@ -318,7 +318,7 @@ export default function Home() {
             highlight
           />
         </div>
-      </section>
+      </section> */}
       <section>
         <FAQ></FAQ>
       </section>
