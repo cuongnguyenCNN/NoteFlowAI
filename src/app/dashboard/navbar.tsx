@@ -3,6 +3,7 @@ import { MoreVertical, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useParams, usePathname } from "next/navigation";
+import { useFolders } from "@/src/contexts/folderscontext";
 interface FolderHeaderProps {
   folderId?: string;
   folderName?: string;
@@ -13,16 +14,13 @@ type NavbarProps = {
   toggleSidebar: () => void;
 };
 type CombinedProps = NavbarProps & FolderHeaderProps;
-export default function NavbarDashboard({
-  toggleSidebar,
-  folderName,
-  onEdit,
-  onDelete,
-}: CombinedProps) {
+export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
   const [openCustomFolder, setOpenAddFolder] = useState(false);
   const pathname = usePathname();
+  const { folders } = useFolders();
   const { folderId } = useParams() as { folderId: string };
   const isFolderPage = pathname?.includes("/folder/") && folderId;
+  const folderNameDetail = folders.filter((note) => note.id === folderId);
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-3">
@@ -69,7 +67,9 @@ export default function NavbarDashboard({
                 >
                   <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"></path>
                 </svg>
-                {isFolderPage ? folderId || "Folder" : "All notes"}
+                {isFolderPage
+                  ? folderNameDetail[0].name || "Folder"
+                  : "All notes"}
               </Link>
             </li>
             <li

@@ -8,7 +8,6 @@ import "@/src/css/b81a822ef496e877.css";
 import "@/src/css/be7c40c9332f48ab.css";
 import { useState } from "react";
 import { useFolders } from "@/src/contexts/folderscontext";
-import NavbarDashboard from "../../navbar";
 const formatDate = (isoDate: string) => {
   const date = new Date(isoDate);
   return new Intl.DateTimeFormat("en-GB", {
@@ -43,20 +42,9 @@ export default function FolderPage() {
   const { folderId } = useParams() as { folderId: string };
   const { notes, updateNote, fetchNotes } = useNotes();
   const { folders } = useFolders();
-  const [openSidebar, setOpenSidebar] = useState(false);
-  const toggleSidebar = () => {
-    setOpenSidebar((prev) => !prev);
-  };
   const [openAddfolder, setOpenAddFolder] = useState(false);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
   const filteredNotes = notes.filter((note) => note.folder_id === folderId);
-  const handleEdit = () => {
-    console.log("Edit folder", folderId);
-  };
-
-  const handleDelete = async () => {
-    console.log("Delete folder", folderId);
-  };
 
   return (
     <div>
