@@ -7,7 +7,6 @@ import {
   LucideBookOpenCheck,
   LucideMap,
   LucideMail,
-  LucideStar,
 } from "lucide-react";
 import { ReactNode, ButtonHTMLAttributes } from "react";
 import Navbar from "./components/navbar";
