@@ -15,7 +15,7 @@ type NavbarProps = {
 };
 type CombinedProps = NavbarProps & FolderHeaderProps;
 export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
-  const [openCustomFolder, setOpenAddFolder] = useState(false);
+  const [openCustomFolder, setOpenCustomFolder] = useState(false);
   const pathname = usePathname();
   const { folders, editFolder, deleteFolder } = useFolders();
   const { folderId } = useParams() as { folderId: string };
@@ -133,7 +133,7 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
       {isFolderPage ? (
         <div className="relative inline-block text-left">
           <button
-            onClick={() => setOpenAddFolder(!openCustomFolder)}
+            onClick={() => setOpenCustomFolder(!openCustomFolder)}
             className="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 flex items-center gap-2"
           >
             <MoreVertical size={20} />
@@ -142,7 +142,7 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
             <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-10">
               <button
                 onClick={() => {
-                  setOpenAddFolder(false);
+                  setOpenCustomFolder(false);
                   setShowModal(true);
                   setNewFolderName(folderNameDetail[0]?.name);
                 }}
@@ -153,8 +153,8 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
               </button>
               <button
                 onClick={() => {
-                  setOpenAddFolder(false);
-                  setShowModalDelete(false);
+                  setOpenCustomFolder(false);
+                  setShowModalDelete(true);
                 }}
                 className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
               >
@@ -228,8 +228,8 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
             >
               ✖️
             </button>
-            <h3 className="text-lg font-semibold mb-2">
-              <Trash size={16} className="mr-2" /> Are you sure want delete this
+            <h3 className="flex text-lg font-semibold mb-2">
+              <Trash size={16} className="mr-2" /> Are you sure want to delete
               folder?
             </h3>
             <p className="text-sm text-gray-500 mb-4">
@@ -238,10 +238,20 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
             <button
               onClick={() => {
                 setShowModalDelete(false);
+              }}
+              style={{ background: "black" }}
+              className="text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
+            >
+              Cancel
+            </button>
+            {"       "}
+            <button
+              onClick={() => {
+                setShowModalDelete(false);
                 deleteFolder(folderId, localStorage.getItem("userId") ?? "");
               }}
               style={{ background: "red" }}
-              className="w-full  text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
+              className="text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
             >
               Delete
             </button>
