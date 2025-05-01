@@ -17,7 +17,7 @@ type CombinedProps = NavbarProps & FolderHeaderProps;
 export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
   const [openCustomFolder, setOpenAddFolder] = useState(false);
   const pathname = usePathname();
-  const { folders, editFolder, fetchFolders } = useFolders();
+  const { folders, editFolder } = useFolders();
   const { folderId } = useParams() as { folderId: string };
   const [showModal, setShowModal] = useState(false);
   const [newFolderName, setNewFolderName] = useState("");
