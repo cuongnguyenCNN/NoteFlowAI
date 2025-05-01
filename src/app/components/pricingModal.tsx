@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface ProfileModalProps {
@@ -23,69 +24,6 @@ export default function PricingModal({ isOpen, onClose }: ProfileModalProps) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      {/* <div className="bg-white rounded-xl w-full max-w-2xl p-6 relative shadow-lg">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-        >
-          <X size={24} />
-        </button>
-
-        <div className="flex justify-center mb-6 space-x-4">
-          <button
-            onClick={() => setBilling("yearly")}
-            className={`px-4 py-2 rounded-full font-semibold ${
-              billing === "yearly"
-                ? "bg-black text-white"
-                : "bg-gray-100 text-gray-700"
-            }`}
-          >
-            Yearly <span className="text-green-600 text-sm ml-1">Save 60%</span>
-          </button>
-          <button
-            onClick={() => setBilling("monthly")}
-            className={`px-4 py-2 rounded-full font-semibold ${
-              billing === "monthly"
-                ? "bg-black text-white"
-                : "bg-gray-100 text-gray-700"
-            }`}
-          >
-            Monthly
-          </button>
-        </div>
-
-        <div className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-3">
-            <div className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center text-xl font-bold">
-              🎤
-            </div>
-            <h2 className="text-2xl font-bold">Notewave AI</h2>
-            <span className="text-yellow-400 text-xl">✨</span>
-          </div>
-          <p className="text-gray-600 mb-4">
-            Get access to all features and benefits. No limits, no restrictions.
-          </p>
-          <p className="text-3xl font-bold">
-            {price} <span className="text-base text-gray-500">{priceText}</span>
-          </p>
-
-          <button className="mt-4 bg-black text-white px-6 py-2 rounded-full hover:bg-gray-900 transition">
-            Upgrade plan →
-          </button>
-
-          <ul className="text-left mt-6 text-sm text-gray-700 space-y-2">
-            <li>✔ Unlimited note generations</li>
-            <li>✔ Unlimited audio or phone calls</li>
-            <li>✔ Unlimited podcasts and YouTube videos</li>
-            <li>✔ Unlimited quiz and flashcards</li>
-            <li>✔ Support for 100+ languages</li>
-            <li>✔ Best-in-className Transcription and Summarization</li>
-            <li>✔ Customer support 24/7</li>
-            <li>✔ Priority Access to new features</li>
-            <li>✔ And more...</li>
-          </ul>
-        </div>
-      </div> */}
       <div
         role="dialog"
         aria-modal="true"
@@ -148,9 +86,16 @@ export default function PricingModal({ isOpen, onClose }: ProfileModalProps) {
                 </span>
               </div>
 
-              <button className="inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 group relative w-full mt-4 gap-2 overflow-hidden text-lg font-semibold tracking-tighter transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2">
+              <Link
+                href={
+                  billing === "monthly"
+                    ? "https://noteflowai.lemonsqueezy.com/buy/0da51c5c-324f-42d9-a9c1-338f25b8e0d9"
+                    : "https://noteflowai.lemonsqueezy.com/buy/06a250c4-42df-4f88-b059-e664bf548694"
+                }
+                className="inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 group relative w-full mt-4 gap-2 overflow-hidden text-lg font-semibold tracking-tighter transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2"
+              >
                 Upgrade Plan →
-              </button>
+              </Link>
             </div>
           </div>
 

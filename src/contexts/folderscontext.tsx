@@ -26,7 +26,6 @@ export const FoldersProvider = ({
       .eq("user_id", userId);
     if (data) setFolders(data);
   };
-
   const createFolder = async (folder: Partial<Folder>) => {
     await supabase.from("folders").insert(folder);
     if (folder.user_id) await fetchFolders(folder.user_id);
@@ -43,7 +42,13 @@ export const FoldersProvider = ({
 
   return (
     <FoldersContext.Provider
-      value={{ folders, fetchFolders, createFolder, editFolder, deleteFolder }}
+      value={{
+        folders,
+        fetchFolders,
+        createFolder,
+        editFolder,
+        deleteFolder,
+      }}
     >
       {children}
     </FoldersContext.Provider>

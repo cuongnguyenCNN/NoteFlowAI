@@ -1,7 +1,7 @@
 "use client";
 import { MoreVertical, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { useFolders } from "@/src/contexts/folderscontext";
 interface FolderHeaderProps {
@@ -17,10 +17,13 @@ type CombinedProps = NavbarProps & FolderHeaderProps;
 export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
   const [openCustomFolder, setOpenAddFolder] = useState(false);
   const pathname = usePathname();
-  const { folders } = useFolders();
+  const { folders, editFolder, fetchFolders } = useFolders();
   const { folderId } = useParams() as { folderId: string };
+  const [showModal, setShowModal] = useState(false);
+  const [newFolderName, setNewFolderName] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const isFolderPage = pathname?.includes("/folder/") && folderId;
-  const folderNameDetail = folders.filter((note) => note.id === folderId);
+  const folderNameDetail = folders.filter((note) => note?.id === folderId);
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-3">
@@ -51,7 +54,7 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
             <li className="inline-flex items-center gap-1.5">
               {isFolderPage ? (
                 <Link
-                  href={`/dashboard/folder/${folderNameDetail[0].id}`}
+                  href={`/dashboard/folder/${folderNameDetail[0]?.id}`}
                   className="transition-colors hover:text-foreground flex items-center"
                 >
                   <svg
@@ -68,7 +71,7 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
                   >
                     <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"></path>
                   </svg>
-                  {folderNameDetail[0].name || "Folder"}
+                  {folderNameDetail[0]?.name || "Folder"}
                 </Link>
               ) : (
                 <Link
@@ -126,38 +129,90 @@ export default function NavbarDashboard({ toggleSidebar }: CombinedProps) {
           </ol>
         </nav>
       </div>
-      <div className="relative inline-block text-left">
-        <button
-          onClick={() => setOpenAddFolder(!openCustomFolder)}
-          className="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 flex items-center gap-2"
+      {isFolderPage ? (
+        <div className="relative inline-block text-left">
+          <button
+            onClick={() => setOpenAddFolder(!openCustomFolder)}
+            className="justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 flex items-center gap-2"
+          >
+            <MoreVertical size={20} />
+          </button>
+          {openCustomFolder && (
+            <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-10">
+              <button
+                onClick={() => {
+                  setOpenAddFolder(false);
+                  setShowModal(true);
+                  setNewFolderName(folderNameDetail[0]?.name);
+                }}
+                className="flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                <Pencil size={16} className="mr-2" />
+                Edit folder
+              </button>
+              <button
+                onClick={() => {
+                  setOpenAddFolder(false);
+                  //   onDelete();
+                }}
+                className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+              >
+                <Trash size={16} className="mr-2" />
+                Delete folder
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <br />
+      )}
+      {showModal && (
+        <div
+          style={{
+            backgroundColor: "rgba(0, 0, 0, .8)",
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black\/80 bg-opacity-30 "
         >
-          <MoreVertical size={20} />
-        </button>
-        {openCustomFolder && (
-          <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-10">
+          <div className="bg-white p-6 rounded-xl w-[90%] max-w-md shadow-xl relative">
             <button
-              onClick={() => {
-                setOpenAddFolder(false);
-                //   onEdit();
-              }}
-              className="flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100"
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowModal(false)}
             >
-              <Pencil size={16} className="mr-2" />
-              Edit folder
+              ✖️
             </button>
+            <h3 className="text-lg font-semibold mb-2">Update folder</h3>
+            <p className="text-sm text-gray-500 mb-4">Update Folder Name</p>
+            <input
+              ref={inputRef}
+              type="text"
+              className="w-full px-4 py-2 border rounded-md mb-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              placeholder="Enter folder name"
+              value={newFolderName}
+              maxLength={25}
+              onChange={(e) => setNewFolderName(e.target.value)}
+            />
+            <div className="text-right text-sm text-gray-400 mb-4">
+              {newFolderName.length}/25
+            </div>
             <button
               onClick={() => {
-                setOpenAddFolder(false);
-                //   onDelete();
+                setShowModal(false);
+                editFolder({
+                  id: folderId,
+                  name: newFolderName,
+                  user_id: localStorage.getItem("userId") ?? "",
+                });
+
+                // fetchFolders(localStorage.getItem("userId") ?? "");
               }}
-              className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+              style={{ background: "black" }}
+              className="w-full  text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
             >
-              <Trash size={16} className="mr-2" />
-              Delete folder
+              Update
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
