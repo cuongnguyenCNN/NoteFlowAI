@@ -89,8 +89,8 @@ export default function PricingModal({ isOpen, onClose }: ProfileModalProps) {
               <Link
                 href={
                   billing === "monthly"
-                    ? "https://noteflowai.lemonsqueezy.com/buy/0da51c5c-324f-42d9-a9c1-338f25b8e0d9"
-                    : "https://noteflowai.lemonsqueezy.com/buy/06a250c4-42df-4f88-b059-e664bf548694"
+                    ? "https://noteflowai.lemonsqueezy.com/buy/3bf8947c-9c71-45c2-80ea-357cae8bf48f"
+                    : "https://noteflowai.lemonsqueezy.com/buy/838e4636-dfe3-44eb-b09a-50bd7164ab98"
                 }
                 className="inline-flex items-center justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 group relative w-full mt-4 gap-2 overflow-hidden text-lg font-semibold tracking-tighter transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2"
               >
