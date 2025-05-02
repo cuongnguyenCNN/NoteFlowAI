@@ -54,33 +54,6 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
     setNewFolderName("");
     setShowModal(false);
   };
-  // async function fetchFolders() {
-  //   const userId = localStorage.getItem("userId");
-  //   const res = await fetch(`/api/folders/list?userId=${userId}`);
-  //   const data = await res.json();
-  //   setFolders(data.folders);
-  // }
-  // async function fetchNotes() {
-  //   debugger;
-  //   const userId = localStorage.getItem("userId");
-  //   const res = await fetch(`/api/notes/list?userId=${userId}`);
-  //   const data = await res.json();
-  //   setNotes(data.notes);
-  // }
-
-  // async function createFolder() {
-  //   const userId = localStorage.getItem("userId");
-  //   if (!newFolderName.trim()) return;
-
-  //   await fetch("/api/folders/create", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ userId: userId, name: newFolderName }),
-  //   });
-
-  //   setNewFolderName("");
-  //   await fetchFolders(); // Load lại danh sách mới
-  // }
 
   useEffect(() => {
     // ⚡ Check cookie trước
@@ -198,7 +171,7 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
                         All notes
                       </div>
                       <small className="font-medium text-muted-foreground text-xs">
-                        (0)
+                        ({notes?.length})
                       </small>
                     </button>
                   </Link>
@@ -233,7 +206,13 @@ export default function SideBar({ isOpen, toggleSidebar }: SidebarProps) {
                                 {folder.name}
                               </div>
                               <small className="font-medium text-muted-foreground text-xs">
-                                (0)
+                                (
+                                {
+                                  notes.filter(
+                                    (note) => note.folder_id === folder.id
+                                  )?.length
+                                }
+                                )
                               </small>
                             </button>
                           </Link>
