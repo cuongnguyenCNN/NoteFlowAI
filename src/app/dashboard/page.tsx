@@ -42,6 +42,12 @@ export default function Dashboard() {
   const { folders } = useFolders();
   const [openAddfolder, setOpenAddFolder] = useState(false);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
+  // const [showContent, setShowContent] = useState("");
+  // const saveContent = async () => {
+  //   const response = await fetch("api/getData");
+  //   const data = await response.json();
+  //   setShowContent(data.text);
+  // };
 
   return (
     <>

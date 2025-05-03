@@ -1,6 +1,8 @@
 "use client"; // chỉ cần nếu bạn dùng App Router
 
+import { useNotes } from "@/src/contexts/notescontext";
 import { useState, useRef, useEffect } from "react";
+import PricingModal from "./pricingModal";
 function convertStyleStringToObject(styleString: string) {
   const styleObject: { [key: string]: string } = {};
 
@@ -23,9 +25,11 @@ export default function YoutubeModal() {
   const [isOpenUploadPdf, setIsOpenUploadPdf] = useState(false);
   const [isOpenUploadAudio, setIsOpenUploadAudio] = useState(false);
   const [isOpenUploadRecording, setIsOpenUploadRecording] = useState(false);
+  const [isOpenPricingModal, setIsOpenPricingModal] = useState(false);
   const [youtubeLink, setYoutubeLink] = useState("");
   const [language, setLanguage] = useState("Auto detect");
   const [error, setError] = useState("");
+  const { notes } = useNotes();
   const modalRef = useRef<HTMLDivElement>(null);
 
   const isValidYoutubeLink = (link: string) => {
@@ -71,7 +75,11 @@ export default function YoutubeModal() {
     <>
       <div className="flex items-center max-[600px]:flex-col max-[600px]:gap-3 gap-3 ">
         <button
-          onClick={() => setIsOpenUploadRecording(true)}
+          onClick={() => {
+            notes?.length >= 3
+              ? setIsOpenPricingModal(true)
+              : setIsOpenUploadRecording(true);
+          }}
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 rounded-md px-8  max-[600px]: max-[600px]:w-full bg-red-500 hover:bg-red-600 text-white"
         >
           <svg
@@ -90,7 +98,11 @@ export default function YoutubeModal() {
           Record audio
         </button>
         <button
-          onClick={() => setIsOpenUploadAudio(true)}
+          onClick={() => {
+            notes?.length >= 3
+              ? setIsOpenPricingModal(true)
+              : setIsOpenUploadAudio(true);
+          }}
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8  max-[600px]:mt-0 max-[600px]:w-full"
         >
           <svg
@@ -112,7 +124,11 @@ export default function YoutubeModal() {
           Upload audio
         </button>
         <button
-          onClick={() => setIsOpenUploadPdf(true)}
+          onClick={() => {
+            notes?.length >= 3
+              ? setIsOpenPricingModal(true)
+              : setIsOpenUploadPdf(true);
+          }}
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8  max-[600px]:mt-0 max-[600px]:w-full"
         >
           <img
@@ -130,7 +146,9 @@ export default function YoutubeModal() {
           Upload PDF
         </button>
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            notes?.length >= 3 ? setIsOpenPricingModal(true) : setIsOpen(true);
+          }}
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8  max-[600px]:mt-0 max-[600px]:w-full"
         >
           <svg
@@ -3216,6 +3234,12 @@ export default function YoutubeModal() {
             </button>
           </div>
         </div>
+      )}
+      {isOpenPricingModal && (
+        <PricingModal
+          isOpen={isOpenPricingModal}
+          onClose={() => setIsOpenPricingModal(false)}
+        />
       )}
     </>
   );
