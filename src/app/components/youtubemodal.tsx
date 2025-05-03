@@ -75,11 +75,11 @@ export default function YoutubeModal() {
     <>
       <div className="flex items-center max-[600px]:flex-col max-[600px]:gap-3 gap-3 ">
         <button
-          onClick={() => {
+          onClick={() =>
             notes?.length >= 3
               ? setIsOpenPricingModal(true)
-              : setIsOpenUploadRecording(true);
-          }}
+              : setIsOpenUploadRecording(true)
+          }
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 rounded-md px-8  max-[600px]: max-[600px]:w-full bg-red-500 hover:bg-red-600 text-white"
         >
           <svg
@@ -98,11 +98,11 @@ export default function YoutubeModal() {
           Record audio
         </button>
         <button
-          onClick={() => {
+          onClick={() =>
             notes?.length >= 3
               ? setIsOpenPricingModal(true)
-              : setIsOpenUploadAudio(true);
-          }}
+              : setIsOpenUploadAudio(true)
+          }
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8  max-[600px]:mt-0 max-[600px]:w-full"
         >
           <svg
@@ -124,11 +124,11 @@ export default function YoutubeModal() {
           Upload audio
         </button>
         <button
-          onClick={() => {
+          onClick={() =>
             notes?.length >= 3
               ? setIsOpenPricingModal(true)
-              : setIsOpenUploadPdf(true);
-          }}
+              : setIsOpenUploadPdf(true)
+          }
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8  max-[600px]:mt-0 max-[600px]:w-full"
         >
           <img
@@ -146,9 +146,9 @@ export default function YoutubeModal() {
           Upload PDF
         </button>
         <button
-          onClick={() => {
-            notes?.length >= 3 ? setIsOpenPricingModal(true) : setIsOpen(true);
-          }}
+          onClick={() =>
+            notes?.length >= 3 ? setIsOpenPricingModal(true) : setIsOpen(true)
+          }
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background mt-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8  max-[600px]:mt-0 max-[600px]:w-full"
         >
           <svg
