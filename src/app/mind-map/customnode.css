@@ -1,0 +1,40 @@
+.custom-node {
+    background-color: #fff;
+    border: 2px solid #7f5af0;
+    border-radius: 12px;
+    padding: 10px;
+    width: 180px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+.custom-node:hover {
+    transform: scale(1.02);
+    cursor: move;
+}
+
+.custom-node-header {
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.custom-node-footer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.custom-node-footer button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.custom-node-footer button:hover {
+    color: #ff5f57;
+}
