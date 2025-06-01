@@ -1,7 +1,5 @@
 // /pages/api/generate-note.js
 import { GoogleGenAI } from "@google/genai";
-import axios from "axios";
-
 const genAI = new GoogleGenAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
 export default async function handler(req, res) {

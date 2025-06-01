@@ -4,7 +4,6 @@ import {
   LucideYoutube,
   LucideFileText,
   LucideMic,
-  LucideBookOpenCheck,
   LucideMap,
   LucideMail,
 } from "lucide-react";

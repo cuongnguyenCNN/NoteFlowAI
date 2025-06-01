@@ -38,14 +38,13 @@ export default function YoutubeModal() {
   };
 
   const handleGenerate = async () => {
-    // if (!isValidYoutubeLink(youtubeLink)) {
-    //   setError("Invalid YouTube video link");
-    // } else {
-    //   setError("");
-    //   alert(`Generating notes for: ${youtubeLink} in ${language}`);
-    //   // TODO: API call or action
-    // }
-    setLoading(true);
+    if (!isValidYoutubeLink(youtubeLink)) {
+      setError("Invalid YouTube video link");
+      return;
+    } else {
+      setError("");
+      // TODO: API call or action
+    }
     const prompt = `Tạo ghi chú chi tiết (note) từ link video YouTube sau:${youtubeLink}`;
     const response = await gemini.models.generateContent({
       model: "gemini-2.0-flash",
@@ -58,7 +57,6 @@ export default function YoutubeModal() {
     // });
 
     setNotes1(response.text || "");
-    setLoading(false);
   };
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -71,22 +69,20 @@ export default function YoutubeModal() {
   const handleDeletePDF = () => {
     setSelectedFile(null);
   };
-  const [url, setUrl] = useState("");
   const [notes1, setNotes1] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleGenerateYoutubeNote = async () => {
-    setLoading(true);
-    const res = await fetch("/api/generate-note", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ youtubeUrl: url }),
-    });
+  // const handleGenerateYoutubeNote = async () => {
+  //   setLoading(true);
+  //   const res = await fetch("/api/generate-note", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ youtubeUrl: url }),
+  //   });
 
-    const data = await res.json();
-    setNotes1(data.notes || data.error);
-    setLoading(false);
-  };
+  //   const data = await res.json();
+  //   setNotes1(data.notes || data.error);
+  //   setLoading(false);
+  // };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
