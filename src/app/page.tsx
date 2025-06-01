@@ -252,7 +252,10 @@ export default function Home() {
             placeholder="Enter your email"
             className="px-4 py-3 rounded-xl border w-72 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          <CustomButton className="flex gap-2">
+          <CustomButton
+            className="flex gap-2"
+            style={{ backgroundColor: "black" }}
+          >
             <LucideMail className="w-5 h-5" /> Subscribe
           </CustomButton>
         </form>
