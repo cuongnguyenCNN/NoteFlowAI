@@ -120,9 +120,9 @@ export default function Home() {
         </h1>
       </div>
       <header className="text-center mb-12">
-        <h1 className="text-6xl md:text-6xl font-bold text-gray-900 mb-4">
-          NoteFlow AI
-        </h1>
+        <h3 className="text-6xl md:text-6xl font-bold text-gray-900 mb-4">
+          Your Second Brain for Notes, Learning.
+        </h3>
         <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
           Smart note-taking from videos, PDFs, YouTube, and recordings — in text
           or mind map format. Boost productivity and retain knowledge.
@@ -135,22 +135,23 @@ export default function Home() {
         </div>
       </header>
 
-      <section id="how-it-works" className="mb-16 max-w-4xl mx-auto">
+      <section id="how-it-works" className="mb-16 max-w-6xl mx-auto">
         <h2 className="text-2xl font-semibold text-center mb-6">
-          🎥 Watch NoteFlow in Action
+          🎥 Full Dashboard in Action
         </h2>
-        <div className="aspect-w-16 aspect-h-9">
-          <iframe
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Demo Video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full rounded-xl shadow-md"
-          ></iframe>
-        </div>
-      </section>
 
+        <img
+          alt="LinkPost Calendar Preview"
+          fetchPriority="high"
+          width="1915"
+          height="902"
+          decoding="async"
+          data-nimg="1"
+          className="rounded-2xl shadow-xl w-full"
+          src="/images/fullscreen.jpg"
+        />
+      </section>
+      <h2 className="text-2xl font-semibold text-center mb-6">Main features</h2>
       <section
         id="features"
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
@@ -188,7 +189,7 @@ export default function Home() {
           </CustomCardContent>
         </CustomCard>
 
-        <CustomCard>
+        {/* <CustomCard>
           <CustomCardContent className="text-center">
             <LucideBookOpenCheck className="w-10 h-10 text-green-600 mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">Text-Based Notes</h3>
@@ -196,7 +197,7 @@ export default function Home() {
               Organize information into bullet points or short paragraphs.
             </p>
           </CustomCardContent>
-        </CustomCard>
+        </CustomCard> */}
 
         <CustomCard>
           <CustomCardContent className="text-center">
