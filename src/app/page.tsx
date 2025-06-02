@@ -130,7 +130,9 @@ export default function Home() {
           <CustomButton style={{ background: "black" }}>
             <Link href="/dashboard">Start for Free</Link>
           </CustomButton>
-          <CustomButton variant="outline">Upgrade to Pro</CustomButton>
+          <CustomButton variant="outline">
+            <Link href="/dashboard">Full Features</Link>
+          </CustomButton>
         </div>
       </header>
 
@@ -265,7 +267,7 @@ export default function Home() {
 
       <section className="bg-blue-100 py-16 text-center rounded-2xl max-w-5xl mx-auto mb-20">
         <h2 className="text-3xl font-bold mb-4">
-          ✨ Upgrade to Pro for the Full Experience
+          ✨ Full Features for the Full Experience
         </h2>
         <p className="text-lg text-gray-700 max-w-xl mx-auto mb-6">
           Unlimited access, advanced note-taking, cloud storage, and more
@@ -275,7 +277,7 @@ export default function Home() {
           className="text-lg px-8 py-4 rounded-full"
           style={{ background: "black" }}
         >
-          Upgrade to Pro
+          <Link href="/dashboard">Try Free</Link>
         </CustomButton>
       </section>
 
